@@ -1,0 +1,7 @@
+all: main-2.cpp
+	g++ -c main-2.cpp 
+	g++ main-2.o -o main -lsfml-graphics -lsfml-window -lsfml-system
+
+clean: 
+	rm main
+	rm *.o

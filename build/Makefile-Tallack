@@ -1,0 +1,51 @@
+# project setting's
+APP = interstellar
+
+# dirs of project
+SRC = ../src/
+TEST = ../test/
+OBJECTS = $(SRC)objects/
+VIEW = $(SRC)view/
+
+# object files
+spaceobject = $(OBJECTS)spaceobject.cpp
+helper = $(OBJECTS)helper.cpp
+
+# view files
+view = ../view/
+startmenu = $(view)/Start\ Menu/
+start = $(startmenu)start.cpp
+move = $(startmenu)move.cpp
+
+title = $(VIEW)/title.cpp
+background = $(VIEW)/background.cpp
+
+# test file paths
+jack = $(TEST)Jack_Test/
+jim = $(TEST)Jim_Test/
+lucas = $(TEST)Lucas_Test/
+tallack = $(TEST)Tallack_Test/
+
+# libraries
+sfml = -lsfml-graphics -lsfml-window -lsfml-system
+
+# compiler and objects to link
+CC = g++
+CO = test-view.o title.o spaceobject.o background.o
+
+# main view, basically the main to be compiled(the one with the window)
+# Your test view in your directory
+view = $(lucas)DAY\ 3/test-view.cpp
+test_lucas = $(lucas)DAY\ 4/test.cpp
+
+default:
+	$(CC) -c $(view) $(title) $(spaceobject) $(background)
+	$(CC) $(CO) -o $(APP) $(sfml)
+
+test:
+	$(CC) -c $(tallack) # put all the files you want to compile after here
+	$(CC) test.o helper.o -o tmp 3 # and all the object files to be linked
+
+clean:
+	rm *.o
+	rm interstellar

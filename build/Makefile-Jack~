@@ -1,0 +1,58 @@
+# project setting's
+APP = jinter
+
+# dirs of project
+SRC = ../src/
+TEST = ../test/
+OBJECTS = $(SRC)objects/
+VIEW = $(SRC)view/
+
+# object files
+spaceobject = $(OBJECTS)spaceobject.cpp
+helper = $(OBJECTS)helper.cpp
+planet = $(OBJECTS)planet.cpp
+satellite = $(OBJECTS)satellite.cpp
+star = $(OBJECTS)star.cpp
+ufo = $(OBJECTS)ufo.cpp
+laser = $(OBJECTS)laser.cpp
+
+# view files
+view = ../test/Jack_Test/view/
+startmenu = $(view)/Start\ Menu/
+start = $(startmenu)start.cpp
+move = $(startmenu)move.cpp
+game_test = $(view)jack_test.cpp
+
+title = $(VIEW)title.cpp
+background = $(VIEW)background.cpp
+
+# test file paths
+jack = $(TEST)Jack_Test/
+jim = $(TEST)Jim_Test/
+lucas = $(TEST)Lucas_Test/
+tallack = $(TEST)Tallack_Test/
+
+# libraries
+sfml = -lsfml-graphics -lsfml-window -lsfml-system
+
+# compiler and objects to link
+ICC = icpc
+CC = g++
+CPP = $(title) $(spaceobject) $(background) $(helper) $(planet) $(satellite) $(star) $(ufo) $(laser)
+CO = jack_test.o title.o spaceobject.o background.o helper.o planet.o satellite.o star.o ufo.o laser.o 
+
+# main view, basically the main to be compiled(the one with the window)
+main = $(jack)view/jack_test.cpp
+test = $(jack)view/jack_test.cpp
+
+default:
+	g++ -std=c++11 -c $(test) $(CPP) 
+	g++ $(CO) -o $(APP) $(sfml) 
+
+test:
+	$(CC) -c $(test) $(CPP) 
+	$(CC) $(CO) -o $(APP) $(sfml)
+
+clean:
+	rm *.o
+	rm jinter

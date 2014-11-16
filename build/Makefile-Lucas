@@ -1,0 +1,64 @@
+# project setting's
+APP = interstellar
+
+# dirs of project
+SRC = ../src/
+TEST = ../test/
+OBJECTS = $(SRC)objects/
+VIEW = $(SRC)view/
+MAIN = $(SRC)main/
+
+# object files
+spaceobject = $(OBJECTS)spaceobject.cpp
+helper = $(OBJECTS)helper.cpp
+planet = $(OBJECTS)planet.cpp
+satellite = $(OBJECTS)satellite.cpp
+star = $(OBJECTS)star.cpp
+ufo = $(OBJECTS)ufo.cpp
+
+# view files
+title = $(VIEW)title.cpp
+background = $(VIEW)background.cpp
+start = $(VIEW)start.cpp
+
+# main file
+# main = $(MAIN)main.cpp
+
+# test file paths
+jack = $(TEST)Jack_Test/
+jim = $(TEST)Jim_Test/
+lucas = $(TEST)Lucas_Test/
+tallack = $(TEST)Tallack_Test/
+
+# libraries
+sfml = -lsfml-graphics -lsfml-window -lsfml-system
+cilk = -lcilkrts
+
+# compiler and objects to link
+ICC = icpc
+CC = g++
+CPP = $(test-view) $(title) $(spaceobject) $(background) $(helper) $(planet) $(satellite) $(star) $(start)
+CO = test-view.o title.o spaceobject.o background.o helper.o planet.o satellite.o star.o start.o
+
+# main view, basically the main to be compiled(the one with the window)
+test-view = $(lucas)Day\ 3/test-view.cpp
+test_lucas = $(lucas)Day\ 4/test.cpp
+
+default:
+	$(ICC) -c $(CPP)
+	$(ICC) $(CO) -o $(APP) $(sfml) $(cilk)
+	# called in terminal
+	# install_name_tool -change mac64/libcilkrts.5.dylib /opt/intel/lib/libcilkrts.5.dylib interstellar)
+
+jimmy:
+	$(CC) -c $(CPP) -I /usr/local/Cellar/sfml/2.1/include
+	$(CC) $(CO) -o $(APP) -L /usr/local/Cellar/sfml/2.1/lib $(sfml)
+
+test:
+	$(ICC) -std=c++11 -c $(test_lucas) $(helper) $(spaceobject) $(star)
+	$(ICC) test.o helper.o spaceobject.o star.o -o test $(sfml) $(cilk)
+
+clean:
+	rm *.o
+	rm test
+	rm interstellar

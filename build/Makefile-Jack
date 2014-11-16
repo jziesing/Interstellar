@@ -1,0 +1,59 @@
+# project setting's
+APP = jinter
+
+# dirs of project
+SRC = ../src/
+TEST = ../test/
+OBJECTS = $(SRC)objects/
+VIEW = $(SRC)view/
+
+# object files
+spaceobject = $(OBJECTS)spaceobject.cpp
+helper = $(OBJECTS)helper.cpp
+planet = $(OBJECTS)planet.cpp
+satellite = $(OBJECTS)satellite.cpp
+star = $(OBJECTS)star.cpp
+ufo = $(OBJECTS)ufo.cpp
+laser = $(OBJECTS)laser.cpp
+
+# view files
+view = ../test/Jack_Test/view/
+startmenu = $(view)/Start\ Menu/
+start = $(startmenu)start.cpp
+move = $(startmenu)move.cpp
+game_test = $(view)jack_test.cpp
+
+title = $(VIEW)title.cpp
+background = $(VIEW)background.cpp
+
+# test file paths
+jack = $(TEST)Jack_Test/
+jim = $(TEST)Jim_Test/
+lucas = $(TEST)Lucas_Test/
+tallack = $(TEST)Tallack_Test/
+
+# libraries
+sfml = -lsfml-graphics -lsfml-window -lsfml-system
+
+# compiler and objects to link
+ICC = icpc
+CC = g++
+CPP = $(title) $(spaceobject) $(background) $(helper) $(planet) $(satellite) $(star) $(ufo) $(laser)
+CO = title.o spaceobject.o background.o helper.o planet.o satellite.o star.o ufo.o laser.o 
+
+# main view, basically the main to be compiled(the one with the window)
+main = $(jack)view/jack_test.cpp
+serial = $(jack)view/serial_interstellar.cpp
+parallel = $(jack)view/parallel_interstellar.cpp
+
+parallel:
+	icpc -std=c++11 -c $(parallel) $(CPP) 
+	icpc parallel_interstellar.o $(CO) -o parallel_interstellar $(sfml) -lcilkrts
+
+serial:
+	g++ -std=c++11 -c $(serial) $(CPP) 
+	g++ serial_interstellar.o $(CO) -o serial_interstellar $(sfml) 
+
+clean:
+	rm *.o
+	rm jinter

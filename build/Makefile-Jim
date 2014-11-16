@@ -1,0 +1,57 @@
+# project setting's
+APP = interstellar
+
+# dirs of project
+SRC = ../src/
+TEST = ../test/
+OBJECTS = $(SRC)objects/
+VIEW = $(SRC)view/
+
+# object files
+spaceobject = $(OBJECTS)spaceobject.cpp
+helper = $(OBJECTS)helper.cpp
+planet = $(OBJECTS)planet.cpp
+satellite = $(OBJECTS)satellite.cpp
+star = $(OBJECTS)star.cpp
+ufo = $(OBJECTS)ufo.cpp
+laser = $(OBJECTS)laser.cpp
+
+# view files
+view = ../view/
+startmenu = $(view)/Start\ Menu/
+start = $(startmenu)start.cpp
+move = $(startmenu)move.cpp
+
+title = $(VIEW)title.cpp
+background = $(VIEW)background.cpp
+
+# test file paths
+jack = $(TEST)Jack_Test/
+jim = $(TEST)Jim_Test/
+lucas = $(TEST)Lucas_Test/
+tallack = $(TEST)Tallack_Test/
+
+# libraries
+sfml = -lsfml-graphics -lsfml-window -lsfml-system
+
+# compiler and objects to link
+ICC = icpc
+CC = g++
+CPP = $(main) $(title) $(spaceobject) $(background) $(helper) $(planet) $(satellite) $(ufo) $(laser)
+CO = test-view.o title.o spaceobject.o background.o helper.o planet.o satellite.o ufo.o laser.o 
+
+# main view, basically the main to be compiled(the one with the window)
+main = $(jim)DAY\ 3/test-view.cpp
+test = $(jim)DAY\ 3/test-view.cpp
+
+default:
+	$(CC) -c $(CPP) -I /usr/local/Cellar/sfml/2.1/include
+	$(CC) $(CO) -o $(APP) -L /usr/local/Cellar/sfml/2.1/lib $(sfml)
+
+test:
+	$(CC) -c $(test) $(helper) -I /usr/local/Cellar/sfml/2.1/include
+	$(CC) test-view.o helper.o -o tmp -L /usr/local/Cellar/sfml/2.1/lib $(sfml)
+
+clean:
+	rm *.o
+	rm interstellar
